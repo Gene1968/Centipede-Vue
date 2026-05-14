@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"C:\\\\Users\\\\gene1\\\\Downloads\\\\Pages\\\\git\\\\centipede-vue\\\\src\\\\assets\\\\img\")",
+      "Bash(cp \"C:\\\\Users\\\\gene1\\\\Downloads\\\\Pages\\\\git\\\\centipede-vue\\\\App\\\\img\\\\graphics.png\" \"C:\\\\Users\\\\gene1\\\\Downloads\\\\Pages\\\\git\\\\centipede-vue\\\\src\\\\assets\\\\img\\\\graphics.png\")",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "PowerShell(netstat *)",
+      "PowerShell(Get-WmiObject *)",
+      "Bash(Remove-Item -Recurse -Force \"C:\\\\Users\\\\gene1\\\\Downloads\\\\Pages\\\\git\\\\Centipede-Vue\\\\App\")",
+      "Bash(Remove-Item -Recurse -Force \"C:\\\\Users\\\\gene1\\\\Downloads\\\\Pages\\\\git\\\\Centipede-Vue\\\\Tests\")",
+      "Bash(rm -rf \"C:/Users/gene1/Downloads/Pages/git/Centipede-Vue/App\")",
+      "Bash(rm -rf \"C:/Users/gene1/Downloads/Pages/git/Centipede-Vue/Tests\")"
+    ]
+  }
+}

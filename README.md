@@ -1,4 +1,9 @@
-Centipede-Angular
+Centipede-Vue (forked by Gene from Centipede-Angular)
 =================
 
-JavaScript / AngularJS / HTML5 canvas Centipede Game
+JavaScript / VueJS 3 / HTML5 canvas Centipede Game
+
+
+
+• Added high score save. You can clear in browser dev tools / Application / Local storage.
+
