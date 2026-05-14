@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode development",
+    "serve": "vite --mode development",
+    "server": "vite --mode development",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --fix",

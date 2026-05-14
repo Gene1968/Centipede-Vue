@@ -1,4 +1,4 @@
 export const coordinateSystem = {
-  world: 0,
-  screen: 1,
+	world: 0,
+	screen: 1,
 }

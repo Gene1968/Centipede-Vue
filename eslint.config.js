@@ -8,6 +8,9 @@ export default [
     rules: {
       'vue/multi-word-component-names': 'off',
       'no-unused-vars': ['error', { argsIgnorePattern: '^_', caughtErrors: 'none' }],
+      'indent': ['error', 'tab'],
+      'vue/html-indent': ['error', 'tab'],
+      'no-tabs': 'off',
     },
   },
   {

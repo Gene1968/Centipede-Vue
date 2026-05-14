@@ -10,7 +10,10 @@
       "Bash(Remove-Item -Recurse -Force \"C:\\\\Users\\\\gene1\\\\Downloads\\\\Pages\\\\git\\\\Centipede-Vue\\\\App\")",
       "Bash(Remove-Item -Recurse -Force \"C:\\\\Users\\\\gene1\\\\Downloads\\\\Pages\\\\git\\\\Centipede-Vue\\\\Tests\")",
       "Bash(rm -rf \"C:/Users/gene1/Downloads/Pages/git/Centipede-Vue/App\")",
-      "Bash(rm -rf \"C:/Users/gene1/Downloads/Pages/git/Centipede-Vue/Tests\")"
+      "Bash(rm -rf \"C:/Users/gene1/Downloads/Pages/git/Centipede-Vue/Tests\")",
+      "Skill(superpowers:brainstorming)",
+      "Skill(superpowers:writing-plans)",
+      "Bash(npx eslint *)"
     ]
   }
 }

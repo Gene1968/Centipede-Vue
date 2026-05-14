@@ -12,67 +12,67 @@ let levelTransitionLineCount = 0
 let playerDieTime = null
 
 export function useGameState() {
-  return {
-    get score() { return score },
-    get highScore() { return highScore },
-    get level() { return level },
-    get lives() { return lives },
-    get gameState() { return currentGameState },
+	return {
+		get score() { return score },
+		get highScore() { return highScore },
+		get level() { return level },
+		get lives() { return lives },
+		get gameState() { return currentGameState },
 
-    currentLevel() { return level },
+		currentLevel() { return level },
 
-    hasGameOverTransitionComplete() {
-      return new Date() - playerDieTime > globalSettings.delayAfterDeathBeforeNewGameStart
-    },
+		hasGameOverTransitionComplete() {
+			return new Date() - playerDieTime > globalSettings.delayAfterDeathBeforeNewGameStart
+		},
 
-    hasPlayerDeathTransitionComplete() {
-      return new Date() - playerDieTime > globalSettings.delayAfterDeathBeforePlayerRegeneration
-    },
+		hasPlayerDeathTransitionComplete() {
+			return new Date() - playerDieTime > globalSettings.delayAfterDeathBeforePlayerRegeneration
+		},
 
-    isGameOver() { return currentGameState === gameState.gameOver },
-    isCurrentlyInLevelTransition() { return currentGameState === gameState.levelTransition },
+		isGameOver() { return currentGameState === gameState.gameOver },
+		isCurrentlyInLevelTransition() { return currentGameState === gameState.levelTransition },
 
-    hasLevelTransitionResetAllLines() {
-      return currentGameState === gameState.levelTransition &&
+		hasLevelTransitionResetAllLines() {
+			return currentGameState === gameState.levelTransition &&
         levelTransitionLineCount >= globalSettings.gameBoardHeight
-    },
+		},
 
-    isCurrentLevelHighSpeed() { return level % 2 === 0 },
-    levelTransitionCount() { return levelTransitionLineCount },
-    incrementLevelTransitionLineCount() { levelTransitionLineCount++ },
+		isCurrentLevelHighSpeed() { return level % 2 === 0 },
+		levelTransitionCount() { return levelTransitionLineCount },
+		incrementLevelTransitionLineCount() { levelTransitionLineCount++ },
 
-    startLevelTransition() {
-      currentGameState = gameState.levelTransition
-      levelTransitionLineCount = 0
-      level++
-    },
+		startLevelTransition() {
+			currentGameState = gameState.levelTransition
+			levelTransitionLineCount = 0
+			level++
+		},
 
-    completeLevelTransition() {
-      currentGameState = gameState.gameActive
-      levelTransitionLineCount = 0
-    },
+		completeLevelTransition() {
+			currentGameState = gameState.gameActive
+			levelTransitionLineCount = 0
+		},
 
-    reset() {
-      lives = globalSettings.lives
-      level = 1
-      score = 0
-      currentGameState = gameState.gameActive
-    },
+		reset() {
+			lives = globalSettings.lives
+			level = 1
+			score = 0
+			currentGameState = gameState.gameActive
+		},
 
-    incrementScore(increment) {
-      score += increment
-      if (score > highScore) {
-        highScore = score
-        localStorage.setItem(LS_HIGH_SCORE, highScore)
-      }
-    },
+		incrementScore(increment) {
+			score += increment
+			if (score > highScore) {
+				highScore = score
+				localStorage.setItem(LS_HIGH_SCORE, highScore)
+			}
+		},
 
-    die() {
-      if (lives > 0) lives--
-      currentGameState = lives === 0 ? gameState.gameOver : gameState.playerDeathTransition
-      playerDieTime = new Date()
-    },
+		die() {
+			if (lives > 0) lives--
+			currentGameState = lives === 0 ? gameState.gameOver : gameState.playerDeathTransition
+			playerDieTime = new Date()
+		},
 
-    playerRegenerate() { currentGameState = gameState.gameActive },
-  }
+		playerRegenerate() { currentGameState = gameState.gameActive },
+	}
 }

@@ -3,5 +3,5 @@ import GameCanvas from '@/components/GameCanvas.vue'
 </script>
 
 <template>
-  <GameCanvas />
+	<GameCanvas />
 </template>
