@@ -17,11 +17,11 @@ export function useFlea() {
 		checkCreateFlea() {
 			if (flea) return
 			if (gameBoardService.mushroomsInPlayerArea > globalSettings.minMushroomsInPlayerAreaBeforeFleaCreated &&
-          gameBoardService.mushroomsOnScreen > globalSettings.minMushroomsBeforeFleaCreated) return
+					gameBoardService.mushroomsOnScreen > globalSettings.minMushroomsBeforeFleaCreated) return
 
 			if (gameBoardService.mushroomsOnScreen < globalSettings.maxMushroomsAllowed &&
-          (gameBoardService.mushroomsOnScreen < globalSettings.minMushroomsBeforeFleaCreated ||
-           random(globalSettings.fleaCreationChance) === 0)) {
+					(gameBoardService.mushroomsOnScreen < globalSettings.minMushroomsBeforeFleaCreated ||
+					 random(globalSettings.fleaCreationChance) === 0)) {
 				flea = { x: random(globalSettings.gameBoardWidth), y: 0, prevY: 0, dy: 0.5 }
 			}
 		},

@@ -21,7 +21,7 @@ export function useSpider() {
 			if (random(globalSettings.spiderCreationChance) === 0) {
 				const x = playerService.isLocatedLeftOfMiddle() ? globalSettings.gameBoardWidth - 1 : 0
 				const y = (globalSettings.gameBoardHeight - globalSettings.playerAreaHeight) +
-          random(globalSettings.playerAreaHeight)
+					random(globalSettings.playerAreaHeight)
 				spider = {
 					x, y, maxY: globalSettings.gameBoardHeight - 1,
 					minY: (globalSettings.gameBoardHeight - globalSettings.playerAreaHeight) + 1,
@@ -40,7 +40,7 @@ export function useSpider() {
 			if (!spider) return false
 			return !!(
 				((spider.x === x || spider.x + 1 === x) && spider.y === y) ||
-        ((spider.prevX === x || spider.prevX + 1 === x) && spider.prevY === y)
+				((spider.prevX === x || spider.prevX + 1 === x) && spider.prevY === y)
 			)
 		},
 

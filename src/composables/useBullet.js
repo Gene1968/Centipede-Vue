@@ -65,7 +65,7 @@ function moveBullet(bullet) {
 function isAlive(bullet) {
 	if (bullet.y < 0) return false
 	return !(bullet.bulletState === characterState.dead &&
-    bullet.animationDeadCount > globalSettings.delayAfterDeathBeforeBulletDispose)
+		bullet.animationDeadCount > globalSettings.delayAfterDeathBeforeBulletDispose)
 }
 
 export function useBullet() {

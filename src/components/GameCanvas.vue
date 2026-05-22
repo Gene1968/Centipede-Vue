@@ -106,36 +106,27 @@ onUnmounted(() => {
 
 <template>
 	<div class="game-container">
-		<div
-			v-if="!instructionsDisplayed"
-			class="instructions"
-		>
+		<div v-if="!instructionsDisplayed" class="instructions">
 			<h2>Instructions</h2>
 			<p>Shoot everything and stay alive</p>
 			<p>Arrow Keys to move</p>
 			<p>Space bar to fire</p>
 			<p>(P to toggle pause)</p>
-			<br>
+			<br />
 			<p>Press any key to start</p>
 		</div>
-		<div
-			v-show="instructionsDisplayed"
-			class="canvas-wrapper"
-		>
+		<div v-show="instructionsDisplayed" class="canvas-wrapper">
 			<canvas
 				ref="canvasRef"
 				width="600"
 				height="640"
 				style="border: 1px solid #000000"
 			/>
-			<div
-				v-if="showStats"
-				class="stats-panel"
-			>
+			<div v-if="showStats" class="stats-panel">
 				<div class="stats-title">STATS</div>
-				<div>Rows cleared: {{ statsRowsCleared }}</div>
+				<div>Play time: {{ statsElapsed }}</div>
 				<div>Mushrooms: {{ statsMushrooms }}</div>
-				<div>Time: {{ statsElapsed }}</div>
+				<div>Clear rows: {{ statsRowsCleared }}</div>
 			</div>
 		</div>
 	</div>

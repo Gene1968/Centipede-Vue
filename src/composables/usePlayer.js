@@ -58,7 +58,7 @@ export function usePlayer() {
 
 			const playerMove = keyPressHandler.getNextMovement()
 			if (playerMove.direction !== characterDirection.none &&
-          !gameBoardService.playerAllowedToMove(player.x, player.y, playerMove.direction)) {
+					!gameBoardService.playerAllowedToMove(player.x, player.y, playerMove.direction)) {
 				playerMove.direction = characterDirection.none
 			}
 
@@ -68,11 +68,11 @@ export function usePlayer() {
 			player.isFiring = playerMove.isFiring
 
 			switch (playerMove.direction) {
-			case characterDirection.none:  player.dx = 0;    player.dy = 0;    break
-			case characterDirection.left:  player.x -= 1;   player.dx = -0.5; player.dy = 0;   break
-			case characterDirection.right: player.x += 1;   player.dx = 0.5;  player.dy = 0;   break
-			case characterDirection.up:    player.y -= 1;   player.dx = 0;    player.dy = -0.5; break
-			case characterDirection.down:  player.y += 1;   player.dx = 0;    player.dy = 0.5;  break
+			case characterDirection.none:	player.dx = 0;		player.dy = 0;		break
+			case characterDirection.left:	player.x -= 1;	 player.dx = -0.5; player.dy = 0;	 break
+			case characterDirection.right: player.x += 1;	 player.dx = 0.5;	player.dy = 0;	 break
+			case characterDirection.up:		player.y -= 1;	 player.dx = 0;		player.dy = -0.5; break
+			case characterDirection.down:	player.y += 1;	 player.dx = 0;		player.dy = 0.5;	break
 			}
 		},
 
@@ -91,7 +91,7 @@ export function usePlayer() {
 
 				switch (player.direction) {
 				case characterDirection.right: image = sprite.playerWalkRight1 + animation; break
-				case characterDirection.left:  image = sprite.playerWalkLeft1 + animation;  break
+				case characterDirection.left:	image = sprite.playerWalkLeft1 + animation;	break
 				case characterDirection.none:
 					if (player.isFiring) image = sprite.playerFire
 					break

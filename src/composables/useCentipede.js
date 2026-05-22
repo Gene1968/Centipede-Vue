@@ -20,10 +20,10 @@ function setPositionFromDirection(c) {
 	c.prevX = c.x
 	c.prevY = c.y
 	switch (c.currentDirection) {
-	case characterDirection.down:  c.y++; break
-	case characterDirection.up:    c.y--; break
+	case characterDirection.down:	c.y++; break
+	case characterDirection.up:		c.y--; break
 	case characterDirection.right: c.x++; break
-	case characterDirection.left:  c.x--; break
+	case characterDirection.left:	c.x--; break
 	}
 }
 
@@ -136,7 +136,7 @@ export function useCentipede() {
 			if (!centipedes.length) return false
 			const first = centipedes[0]
 			return first.y === globalSettings.gameBoardHeight - 1 &&
-        (first.x === globalSettings.gameBoardWidth - 1 || first.x === 0)
+				(first.x === globalSettings.gameBoardWidth - 1 || first.x === 0)
 		},
 
 		isCentipedeAtPlayerTopBoundary() {
