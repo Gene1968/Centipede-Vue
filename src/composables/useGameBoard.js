@@ -45,6 +45,26 @@ export function useGameBoard() {
 	return {
 		get mushroomsInPlayerArea() { return mushroomsInPlayerArea },
 		get mushroomsOnScreen() { return mushroomsOnScreen },
+		get clearedRowCount() {
+			let count = 0
+			for (let h = 0; h < globalSettings.gameBoardHeight - 1; h++) {
+				let empty = true
+				for (let w = 0; w < globalSettings.gameBoardWidth; w++) {
+					if (map[h][w] !== 0) { empty = false; break }
+				}
+				if (empty) count++
+			}
+			return count
+		},
+		get totalMushroomHealth() {
+			let total = 0
+			for (let h = 0; h < globalSettings.gameBoardHeight; h++) {
+				for (let w = 0; w < globalSettings.gameBoardWidth; w++) {
+					total += Math.abs(map[h][w])
+				}
+			}
+			return total / 4
+		},
 
 		initialise() {
 			map = []
