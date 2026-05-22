@@ -21,12 +21,13 @@ export function useFlea() {
 
 			if (gameBoardService.mushroomsOnScreen < globalSettings.maxMushroomsAllowed &&
 					(gameBoardService.mushroomsOnScreen < globalSettings.minMushroomsBeforeFleaCreated ||
-					 random(globalSettings.fleaCreationChance) === 0)) {
+						random(globalSettings.fleaCreationChance) === 0)) {
 				flea = { x: random(globalSettings.gameBoardWidth), y: 0, prevY: 0, dy: 0.5 }
 			}
 		},
 
 		destroy() { flea = null },
+		get isActive() { return flea !== null },
 
 		checkCollision(x, y) {
 			if (!flea) return false

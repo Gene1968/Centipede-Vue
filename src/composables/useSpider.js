@@ -35,6 +35,7 @@ export function useSpider() {
 		},
 
 		destroy() { spider = null },
+		get isActive() { return spider !== null },
 
 		checkCollision(x, y) {
 			if (!spider) return false

@@ -66,6 +66,15 @@ export function useGameBoard() {
 			}
 			return total / 4
 		},
+		get totalPoisonMushroomHealth() {
+			let total = 0
+			for (let h = 0; h < globalSettings.gameBoardHeight; h++) {
+				for (let w = 0; w < globalSettings.gameBoardWidth; w++) {
+					if (map[h][w] < 0) total += -map[h][w]
+				}
+			}
+			return total / 4
+		},
 
 		initialise() {
 			map = []

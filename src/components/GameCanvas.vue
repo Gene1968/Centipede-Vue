@@ -6,6 +6,10 @@ import { useRender } from '@/composables/useRender'
 import { useKeyPress } from '@/composables/useKeyPress'
 import { useGameBoard } from '@/composables/useGameBoard'
 import { useGameState } from '@/composables/useGameState'
+import { useCentipede } from '@/composables/useCentipede'
+import { useSpider } from '@/composables/useSpider'
+import { useFlea } from '@/composables/useFlea'
+import { useSnail } from '@/composables/useSnail'
 import graphicsFile from '@/assets/img/graphics.png'
 
 const instructionsDisplayed = ref(false)
@@ -18,10 +22,18 @@ const renderService = useRender()
 const keyPressHandler = useKeyPress()
 const gameBoardService = useGameBoard()
 const gameStateService = useGameState()
+const centipedeService = useCentipede()
+const spiderService = useSpider()
+const fleaService = useFlea()
+const snailService = useSnail()
 
 const showStats = ref(false)
 const statsRowsCleared = ref(0)
 const statsMushrooms = ref('0.00')
+const statsPoisoned = ref('0.00')
+const statsCentSegs = ref(0)
+const statsFastSegs = ref(0)
+const statsMonsters = ref(0)
 const statsElapsed = ref('0:00')
 
 let intervalId = null
@@ -41,6 +53,10 @@ function gameLoop() {
 	if (showStats.value) {
 		statsRowsCleared.value = gameBoardService.clearedRowCount
 		statsMushrooms.value = gameBoardService.totalMushroomHealth.toFixed(2)
+		statsPoisoned.value = gameBoardService.totalPoisonMushroomHealth.toFixed(2)
+		statsCentSegs.value = centipedeService.segmentCount
+		statsFastSegs.value = centipedeService.fastSegmentCount
+		statsMonsters.value = (spiderService.isActive ? 1 : 0) + (fleaService.isActive ? 1 : 0) + (snailService.isActive ? 1 : 0)
 		statsElapsed.value = formatElapsed(gameStateService.elapsedMs)
 	}
 }
@@ -111,9 +127,11 @@ onUnmounted(() => {
 			<p>Shoot everything and stay alive</p>
 			<p>Arrow Keys to move</p>
 			<p>Space bar to fire</p>
-			<p>(P to toggle pause)</p>
 			<br />
 			<p>Press any key to start</p>
+			<br />
+			<p>(P to toggle pause)</p>
+			<p>(I to toggle stats)</p>
 		</div>
 		<div v-show="instructionsDisplayed" class="canvas-wrapper">
 			<canvas
@@ -123,10 +141,14 @@ onUnmounted(() => {
 				style="border: 1px solid #000000"
 			/>
 			<div v-if="showStats" class="stats-panel">
-				<div class="stats-title">STATS</div>
-				<div>Play time: {{ statsElapsed }}</div>
-				<div>Mushrooms: {{ statsMushrooms }}</div>
-				<div>Clear rows: {{ statsRowsCleared }}</div>
+				<div class="stats-title">STATS / INFO</div>
+				<div>Play time: <span>{{ statsElapsed }}</span></div>
+				<div>Mushrooms: <span>{{ statsMushrooms }}</span></div>
+				<div v-if="statsPoisoned > 0">Poisoned!: <span style="color: #ff4444">{{ statsPoisoned }}</span></div>
+				<div>Cent segs: <span>{{ statsCentSegs }}</span></div>
+				<div v-if="statsFastSegs > 0">Fast segs: <span style="color: #f44">{{ statsFastSegs }}</span></div>
+				<div>Open rows: <span :style="{ color: statsRowsCleared < 3 ? '#ff4444' : statsRowsCleared < 6 ? '#ff9900' : undefined }">{{ statsRowsCleared }}</span></div>
+				<div v-if="statsMonsters > 0">Monsters!: <span style="color: #ff4444">{{ statsMonsters }}</span></div>
 			</div>
 		</div>
 	</div>
@@ -154,19 +176,22 @@ onUnmounted(() => {
 	left: calc(100% + 12px);
 	top: 0;
 	background: rgba(0, 0, 0, 0.75);
-	color: #00ff00;
+	color: #fff;
 	font-family: monospace;
 	font-size: 13px;
 	padding: 10px 14px;
-	border: 1px solid #00ff00;
+	border: 1px solid #0f0;
 	white-space: nowrap;
 	line-height: 1.8;
 }
-
 .stats-title {
 	font-weight: bold;
 	margin-bottom: 4px;
-	color: #ffff00;
+	color: #ff0;
 	letter-spacing: 2px;
 }
+.stats-panel span {
+	color: #0f0;
+}
+
 </style>

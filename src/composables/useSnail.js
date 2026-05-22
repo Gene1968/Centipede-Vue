@@ -27,6 +27,7 @@ export function useSnail() {
 		},
 
 		destroy() { snail = null },
+		get isActive() { return snail !== null },
 
 		checkCollision(x, y) {
 			if (!snail) return false

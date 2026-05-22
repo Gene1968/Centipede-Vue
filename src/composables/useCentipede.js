@@ -131,6 +131,13 @@ export function useCentipede() {
 
 		destroy() { centipedes = [] },
 		anyAlive() { return centipedes.length > 0 },
+		get segmentCount() {
+			return centipedes.reduce((sum, c) => sum + 1 + c.body.length, 0)
+		},
+		get fastSegmentCount() {
+			return centipedes.reduce((sum, c) =>
+				c.framesPerMove === globalSettings.centipedeFramesPerMoveHighSpeed ? sum + 1 + c.body.length : sum, 0)
+		},
 
 		isFirstCentipedeAtEndOfScreen() {
 			if (!centipedes.length) return false
