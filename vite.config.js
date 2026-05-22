@@ -7,6 +7,7 @@ export default ({ mode }) => {
 	console.log('Mode: ', mode)
 
 	return defineConfig({
+		base: './',
 		server: {
 			host: '0.0.0.0',
 			port: 5173,
