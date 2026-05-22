@@ -4,6 +4,8 @@ import { useGraphicsEngine } from '@/composables/useGraphicsEngine'
 import { useGame } from '@/composables/useGame'
 import { useRender } from '@/composables/useRender'
 import { useKeyPress } from '@/composables/useKeyPress'
+import { useGameBoard } from '@/composables/useGameBoard'
+import { useGameState } from '@/composables/useGameState'
 import graphicsFile from '@/assets/img/graphics.png'
 
 const instructionsDisplayed = ref(false)
@@ -14,14 +16,33 @@ const gfx = useGraphicsEngine()
 const gameService = useGame()
 const renderService = useRender()
 const keyPressHandler = useKeyPress()
+const gameBoardService = useGameBoard()
+const gameStateService = useGameState()
+
+const showStats = ref(false)
+const statsRowsCleared = ref(0)
+const statsMushrooms = ref('0.00')
+const statsElapsed = ref('0:00')
 
 let intervalId = null
 let animation = 0
+
+function formatElapsed(ms) {
+	const totalSeconds = Math.floor(ms / 1000)
+	const minutes = Math.floor(totalSeconds / 60)
+	const seconds = totalSeconds % 60
+	return `${minutes}:${seconds.toString().padStart(2, '0')}`
+}
 
 function gameLoop() {
 	animation = (animation + 1) % 4
 	gameService.update(animation)
 	renderService.draw(animation)
+	if (showStats.value) {
+		statsRowsCleared.value = gameBoardService.clearedRowCount
+		statsMushrooms.value = gameBoardService.totalMushroomHealth.toFixed(2)
+		statsElapsed.value = formatElapsed(gameStateService.elapsedMs)
+	}
 }
 
 function drawPauseOverlay() {
@@ -59,6 +80,11 @@ function handleKeyDown(e) {
 		return
 	}
 
+	if (e.keyCode === 73) {
+		showStats.value = !showStats.value
+		return
+	}
+
 	keyPressHandler.keyPress(e.keyCode)
 }
 
@@ -92,13 +118,26 @@ onUnmounted(() => {
 			<br>
 			<p>Press any key to start</p>
 		</div>
-		<canvas
+		<div
 			v-show="instructionsDisplayed"
-			ref="canvasRef"
-			width="600"
-			height="640"
-			style="border: 1px solid #000000"
-		/>
+			class="canvas-wrapper"
+		>
+			<canvas
+				ref="canvasRef"
+				width="600"
+				height="640"
+				style="border: 1px solid #000000"
+			/>
+			<div
+				v-if="showStats"
+				class="stats-panel"
+			>
+				<div class="stats-title">STATS</div>
+				<div>Rows cleared: {{ statsRowsCleared }}</div>
+				<div>Mushrooms: {{ statsMushrooms }}</div>
+				<div>Time: {{ statsElapsed }}</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -113,5 +152,30 @@ onUnmounted(() => {
 .instructions {
 	text-align: center;
 	color: white;
+}
+
+.canvas-wrapper {
+	position: relative;
+}
+
+.stats-panel {
+	position: absolute;
+	left: calc(100% + 12px);
+	top: 0;
+	background: rgba(0, 0, 0, 0.75);
+	color: #00ff00;
+	font-family: monospace;
+	font-size: 13px;
+	padding: 10px 14px;
+	border: 1px solid #00ff00;
+	white-space: nowrap;
+	line-height: 1.8;
+}
+
+.stats-title {
+	font-weight: bold;
+	margin-bottom: 4px;
+	color: #ffff00;
+	letter-spacing: 2px;
 }
 </style>
