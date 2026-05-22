@@ -156,6 +156,14 @@ export function useGame() {
 			initialiseLevel()
 		},
 
+		restart() {
+			gameStateService.reset()
+			resetBoard()
+			playerService.regenerate(true)
+			gameStateService.playerRegenerate()
+			initialiseLevel()
+		},
+
 		update(animation) {
 			switch (gameStateService.gameState) {
 			case gameState.gameActive:					 activeGameUpdate(animation); break

@@ -28,6 +28,7 @@ const fleaService = useFlea()
 const snailService = useSnail()
 
 const showStats = ref(false)
+const showRestartConfirm = ref(false)
 const statsRowsCleared = ref(0)
 const statsMushrooms = ref('0.00')
 const statsPoisoned = ref('0.00')
@@ -101,6 +102,24 @@ function handleKeyDown(e) {
 		return
 	}
 
+	if (e.keyCode === 82) {
+		if (showRestartConfirm.value) {
+			showRestartConfirm.value = false
+			gameService.restart()
+			if (!intervalId) intervalId = setInterval(gameLoop, 50)
+		} else {
+			showRestartConfirm.value = true
+			if (intervalId) { clearInterval(intervalId); intervalId = null }
+		}
+		return
+	}
+
+	if (e.keyCode === 27 && showRestartConfirm.value) {
+		showRestartConfirm.value = false
+		if (!isPaused.value && !intervalId) intervalId = setInterval(gameLoop, 50)
+		return
+	}
+
 	keyPressHandler.keyPress(e.keyCode)
 }
 
@@ -130,8 +149,9 @@ onUnmounted(() => {
 			<br />
 			<p>Press any key to start</p>
 			<br />
-			<p>(P to toggle pause)</p>
 			<p>(I to toggle stats)</p>
+			<p>(P to toggle pause)</p>
+			<p>(R to restart game)</p>
 		</div>
 		<div v-show="instructionsDisplayed" class="canvas-wrapper">
 			<canvas
@@ -140,6 +160,10 @@ onUnmounted(() => {
 				height="640"
 				style="border: 1px solid #000000"
 			/>
+			<div v-if="showRestartConfirm" class="restart-confirm">
+				<div class="restart-confirm-title">RESTART?</div>
+				<div><kbd>R</kbd> Yes &nbsp; <kbd>Esc</kbd> Cancel</div>
+			</div>
 			<div v-if="showStats" class="stats-panel">
 				<div class="stats-title">STATS / INFO</div>
 				<div>Play time: <span>{{ statsElapsed }}</span></div>
@@ -192,6 +216,37 @@ onUnmounted(() => {
 }
 .stats-panel span {
 	color: #0f0;
+}
+
+.restart-confirm {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: rgba(0, 0, 0, 0.88);
+	color: #fff;
+	font-family: monospace;
+	font-size: 15px;
+	padding: 18px 28px;
+	border: 2px solid #ff0;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.restart-confirm-title {
+	font-weight: bold;
+	font-size: 18px;
+	color: #ff0;
+	letter-spacing: 3px;
+	margin-bottom: 10px;
+}
+
+.restart-confirm kbd {
+	background: #333;
+	border: 1px solid #888;
+	border-radius: 3px;
+	padding: 1px 5px;
+	font-family: monospace;
 }
 
 </style>
