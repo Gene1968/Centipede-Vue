@@ -10,6 +10,7 @@ let lives = globalSettings.lives
 let currentGameState = gameState.gameActive
 let levelTransitionLineCount = 0
 let playerDieTime = null
+let gameStartTime = Date.now()
 
 export function useGameState() {
 	return {
@@ -17,6 +18,7 @@ export function useGameState() {
 		get highScore() { return highScore },
 		get level() { return level },
 		get lives() { return lives },
+		get elapsedMs() { return Date.now() - gameStartTime },
 		get gameState() { return currentGameState },
 
 		currentLevel() { return level },
@@ -57,6 +59,7 @@ export function useGameState() {
 			level = 1
 			score = 0
 			currentGameState = gameState.gameActive
+			gameStartTime = Date.now()
 		},
 
 		incrementScore(increment) {
