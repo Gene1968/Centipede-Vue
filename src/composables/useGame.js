@@ -76,8 +76,8 @@ function checkPlayerCollision() {
 	if (!playerService.isAlive()) return
 	const pos = playerService.getPosition()
 	if (spiderService.checkCollision(pos.x, pos.y) ||
-      fleaService.checkCollision(pos.x, pos.y) ||
-      centipedeService.checkCollision(pos.x, pos.y, false)) {
+			fleaService.checkCollision(pos.x, pos.y) ||
+			centipedeService.checkCollision(pos.x, pos.y, false)) {
 		playerService.die()
 		gameStateService.die()
 	}
@@ -150,6 +150,7 @@ function gameOverTransitionUpdate(animation) {
 export function useGame() {
 	return {
 		initialise() {
+			gameStateService.startTimer()
 			resetBoard()
 			playerService.createPlayer()
 			initialiseLevel()
@@ -157,10 +158,10 @@ export function useGame() {
 
 		update(animation) {
 			switch (gameStateService.gameState) {
-			case gameState.gameActive:           activeGameUpdate(animation); break
+			case gameState.gameActive:					 activeGameUpdate(animation); break
 			case gameState.playerDeathTransition: playerDeathTransitionUpdate(animation); break
-			case gameState.levelTransition:      levelTransitionUpdate(); break
-			case gameState.gameOver:             gameOverTransitionUpdate(animation); break
+			case gameState.levelTransition:			levelTransitionUpdate(); break
+			case gameState.gameOver:						 gameOverTransitionUpdate(animation); break
 			}
 		},
 	}

@@ -36,7 +36,7 @@ export function useGameState() {
 
 		hasLevelTransitionResetAllLines() {
 			return currentGameState === gameState.levelTransition &&
-        levelTransitionLineCount >= globalSettings.gameBoardHeight
+				levelTransitionLineCount >= globalSettings.gameBoardHeight
 		},
 
 		isCurrentLevelHighSpeed() { return level % 2 === 0 },
@@ -77,5 +77,7 @@ export function useGameState() {
 		},
 
 		playerRegenerate() { currentGameState = gameState.gameActive },
+
+		startTimer() { gameStartTime = Date.now() },
 	}
 }
